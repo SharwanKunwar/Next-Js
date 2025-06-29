@@ -11,17 +11,6 @@ function MyView() {
       <Canvas>
         <OrbitControls/>
             <Rotation/>
-            <Rotation/>
-            <Rotation/>
-            <Rotation/>
-            <Rotation/>
-            <Rotation/>
-            <Rotation/>
-            <Rotation/>
-            <Rotation/>
-            
-            
-            
       </Canvas>
     </div>
   )

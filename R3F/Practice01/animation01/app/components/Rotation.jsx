@@ -1,4 +1,5 @@
 'use client'
+
 import { useFrame } from '@react-three/fiber'
 import React, { useRef } from 'react'
 
@@ -13,7 +14,7 @@ function Rotation() {
     
         <mesh ref={meshRef}>
             <boxGeometry args={[2,2,2]}/>
-            <meshBasicMaterial wireframe  color={"pink"} />
+            <meshBasicMaterial  color={"pink"} />
         </mesh>
         
     
