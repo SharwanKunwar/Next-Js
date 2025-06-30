@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# 🛠️ React Three Fiber (R3F) Helper Tools
 
-First, run the development server:
+This guide introduces helpful tools in **React Three Fiber (R3F)** that enhance development experience, orientation, and debugging in 3D scenes.
+
+## 📦 Installation
+
+Make sure you have `@react-three/fiber` and `@react-three/drei` installed:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install @react-three/fiber @react-three/drei three
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🔭 Gizmo Helpers
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🔹 `GizmoHelper` + `GizmoViewport`
 
-## Learn More
+Shows a small interactive cube in the corner that lets you quickly rotate your scene to top, front, side, etc.
 
-To learn more about Next.js, take a look at the following resources:
+```jsx
+import { GizmoHelper, GizmoViewport } from '@react-three/drei'
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<GizmoHelper alignment="bottom-right" margin={[80, 80]}>
+  <GizmoViewport 
+    axisColors={['red', 'green', 'blue']} 
+    labelColor="white" 
+  />
+</GizmoHelper>
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### 🔹 `GizmoHelper` + `Viewcube`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+A stylized orientation cube alternative to `GizmoViewport`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```jsx
+import { GizmoHelper, Viewcube } from '@react-three/drei'
+
+<GizmoHelper alignment="top-right" margin={[100, 100]}>
+  <Viewcube />
+</GizmoHelper>
+```
+
+---
+
+## 🧱 Scene Helpers
+
+### 🔹 `gridHelper`
+
+Adds a floor/grid for better spatial awareness.
+
+```jsx
+<gridHelper args={[10, 10]} />
+```
+
+- `args`: `[size, divisions]`
+
+---
+
+### 🔹 `axesHelper`
+
+Displays the XYZ axes in red (X), green (Y), and blue (Z).
+
+```jsx
+<axesHelper args={[5]} />
+```
+
+- `args`: `[size]`
+
+---
+
+## 🌐 Full Example
+
+```jsx
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, GizmoHelper, GizmoViewport } from '@react-three/drei'
+
+function Scene() {
+  return (
+    <Canvas>
+      <ambientLight />
+      <directionalLight position={[2, 2, 2]} />
+      <mesh>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial color="orange" />
+      </mesh>
+
+      <gridHelper args={[10, 10]} />
+      <axesHelper args={[5]} />
+      <OrbitControls />
+
+      <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
+        <GizmoViewport axisColors={['red', 'green', 'blue']} labelColor="white" />
+      </GizmoHelper>
+    </Canvas>
+  )
+}
+```
+
+---
+
+## 🧠 Summary
+
+- Use **`GizmoViewport`** or **`Viewcube`** for orientation controls.
+- Add **`gridHelper`** and **`axesHelper`** to visually debug your 3D space.
+- Combine with **`OrbitControls`** for full user navigation experience.
+
+---
+
+## 📚 References
+
+- [React Three Fiber Documentation](https://docs.pmnd.rs/react-three-fiber)
+- [Drei Helpers](https://docs.pmnd.rs/drei)
